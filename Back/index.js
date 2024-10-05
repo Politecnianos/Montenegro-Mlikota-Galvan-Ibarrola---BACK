@@ -1,5 +1,7 @@
 const express = require ('express');
 const Alumno = require('./models/Alumno');
+const Mensaje = require('./models/Mensaje');
+const Respuesta = require('./models/Respuesta');
 const sequelize = require('./database');
 const app = express();
 const port = 3000;
@@ -12,8 +14,12 @@ app.use(express.json());
 
 
 const alumnosRoutes = require('./routes/alumnos');
+const mensajesRoutes = require('./routes/mensajes');
+const respuestasRoutes = require('./routes/respuestas');
 
 app.use('/alumnos', alumnosRoutes);
+app.use('/mensajes', mensajesRoutes);
+app.use('/respuestas', respuestasRoutes);
 
 
 sequelize.sync({force : false}).then(() => {
