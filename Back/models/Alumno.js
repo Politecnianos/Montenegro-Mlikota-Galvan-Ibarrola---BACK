@@ -4,6 +4,8 @@ const sequelize = require('../database');
 const Alumno = sequelize.define('Alumno', {
     dni: {
         type : DataTypes.INTEGER,
+        primaryKey : true,
+        unique: true,
         allowNull : false
     },
     nombre: {
@@ -28,6 +30,7 @@ const Alumno = sequelize.define('Alumno', {
     },
     mail: {
         type : DataTypes.STRING,
+        unique: true,
         allowNull : false
     },
     contrasena: {

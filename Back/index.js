@@ -3,6 +3,7 @@ const Alumno = require('./models/Alumno');
 const Mensaje = require('./models/Mensaje');
 const Respuesta = require('./models/Respuesta');
 const sequelize = require('./database');
+const dotenv = require('dotenv');
 const app = express();
 const port = 3000;
 
@@ -11,7 +12,7 @@ app.listen(port, () => {
 });
 
 app.use(express.json());
-
+dotenv.config();
 
 const alumnosRoutes = require('./routes/alumnos');
 const mensajesRoutes = require('./routes/mensajes');
