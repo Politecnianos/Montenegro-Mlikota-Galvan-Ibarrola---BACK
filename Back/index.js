@@ -6,11 +6,13 @@ const sequelize = require('./database');
 const dotenv = require('dotenv');
 const app = express();
 const port = 3000;
+const cors = require('cors')
 
 app.listen(port, () => {
     console.log('Server is running on port', port);
 });
 
+app.use(cors());
 app.use(express.json());
 dotenv.config();
 
