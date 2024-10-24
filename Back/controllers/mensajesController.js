@@ -11,18 +11,19 @@ exports.getMensajeById = async(req, res) => {
 };
 
 exports.createMensaje = async(req, res) => {
-    const {dueno, contenido, fecha} = req.body;
-    const nuevoMensaje = await Mensaje.create({dueno, contenido, fecha});
+    const {dueno, contenido, fecha, seccion} = req.body;
+    const nuevoMensaje = await Mensaje.create({dueno, contenido, fecha, seccion});
     res.json(nuevoMensaje);
 };
 
 exports.updateMensaje = async(req, res) => {
-    const {dueno, contenido, fecha} = req.body;
+    const {dueno, contenido, fecha, seccion} = req.body;
     const mensaje = await Mensaje.findByPk(req.params.id);
     if(mensaje){
         mensaje.dueno = dueno;
         mensaje.contenido = contenido;
         mensaje.fecha = fecha;
+        mensaje.seccion = seccion;
         await mensaje.save();
         res.json(mensaje);
     }else{
