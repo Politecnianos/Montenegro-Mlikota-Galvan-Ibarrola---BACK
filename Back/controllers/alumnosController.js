@@ -72,3 +72,16 @@ exports.loginUser = async(req, res) =>{
 
     res.json(token);
 };
+
+exports.getDniByMail = async (req, res) => {
+    const { mail } = req.params;
+    try {
+        const alumno = await Alumno.findOne({ where: { mail } });
+        if (!alumno) {
+            return res.status(404).json({ msj: "Alumno no encontrado" });
+        }
+        res.json({ dni: alumno.dni });
+    } catch (error) {
+        res.status(500).json({ msj: "Ocurrió un error", error });
+    }
+};
