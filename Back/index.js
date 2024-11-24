@@ -3,15 +3,18 @@ const Alumno = require('./models/Alumno');
 const Mensaje = require('./models/Mensaje');
 const Respuesta = require('./models/Respuesta');
 const sequelize = require('./database');
+const dotenv = require('dotenv');
 const app = express();
 const port = 3000;
+const cors = require('cors')
 
 app.listen(port, () => {
     console.log('Server is running on port', port);
 });
 
+app.use(cors());
 app.use(express.json());
-
+dotenv.config();
 
 const alumnosRoutes = require('./routes/alumnos');
 const mensajesRoutes = require('./routes/mensajes');

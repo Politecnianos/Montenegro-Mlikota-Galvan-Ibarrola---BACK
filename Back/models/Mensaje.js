@@ -13,6 +13,10 @@ const Mensaje = sequelize.define('Mensaje', {
     fecha: {
         type : DataTypes.DATE,
         allowNull : false
+    },
+    seccion: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
 });
 
