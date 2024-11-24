@@ -18,6 +18,8 @@ COPY --from=build /usr/src/app/node_modules ./node_modules
 
 COPY --from=build /usr/src/app .
 
+COPY .env ./
+
 EXPOSE 3000
 
 CMD ["npm", "run", "dev"]
