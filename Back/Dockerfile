@@ -1,25 +1,29 @@
+FROM node:latest AS builder
 
-FROM node:20 AS build
 
-WORKDIR /usr/src/app
 
-COPY package*.json ./
+WORKDIR /app
+
+
+
+COPY ./package*.json ./
+
+
 
 RUN npm install
+
+
+
+RUN mkdir -p /app/env && echo "$PRODUCTION" > /app/env/production.env
+
+
 
 COPY . .
 
 
-FROM node:20-slim
-
-WORKDIR /usr/src/app
-
-COPY --from=build /usr/src/app/node_modules ./node_modules
-
-COPY --from=build /usr/src/app .
-
-COPY .env ./
 
 EXPOSE 3000
 
-CMD ["npm", "run", "dev"]
+
+
+CMD ["npm", "start"]
