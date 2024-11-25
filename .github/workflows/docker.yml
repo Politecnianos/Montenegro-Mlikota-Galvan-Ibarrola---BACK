@@ -17,6 +17,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+
+      - name: Create production.env from secret
+        run: |
+          echo "${{ secrets.PRODUCTION }}" > ./env/production.env 
+
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
