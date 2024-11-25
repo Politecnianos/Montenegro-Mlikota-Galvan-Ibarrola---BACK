@@ -1,25 +1,29 @@
+FROM node:latest AS builder
 
-FROM node:20 AS build
+WORKDIR /app
 
-WORKDIR /usr/src/app
-
-COPY package*.json ./
+COPY ./package*.json ./
 
 RUN npm install
 
+RUN mkdir -p /app/env && echo "$PRODUCTION" > /app/env/production.env
+
 COPY . .
 
+RUN npm run build
 
-FROM node:20-slim
+FROM node:latest AS runner
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY --from=build /usr/src/app/node_modules ./node_modules
+COPY --from=builder /app/env/production.env ./env/production.env
 
-COPY --from=build /usr/src/app .
+COPY --from=builder /app/dist ./dist
 
-COPY .env ./
+COPY ./package*.json ./
+
+RUN npm install 
 
 EXPOSE 3000
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "start"]
