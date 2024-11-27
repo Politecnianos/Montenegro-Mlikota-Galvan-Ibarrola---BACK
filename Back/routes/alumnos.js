@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const alumnosController = require('../controllers/alumnosController');
-const validateToken = require('./validate-token')
+const validateToken = require('./validate-token');
+const alumnosController =require ('../controllers/alumnosController')
 
 router.get('/', validateToken, alumnosController.getAllAlumnos);
-router.get('/mail/:mail', alumnosController.getDniByMail);
-router.get('/:id', alumnosController.getAlumnoById);
+router.get('/mail/:mail', validateToken, alumnosController.getDniByMail);
+router.get('/:id', validateToken, alumnosController.getAlumnoById);
 router.post('/', alumnosController.createAlumno);
 router.post('/login', alumnosController.loginUser)
-router.put('/:id', alumnosController.updateAlumno);
-router.delete('/:id', alumnosController.deleteAlumno);
+router.put('/:id', validateToken, alumnosController.updateAlumno);
+router.delete('/:id', validateToken, alumnosController.deleteAlumno);
 
 module.exports = router;
