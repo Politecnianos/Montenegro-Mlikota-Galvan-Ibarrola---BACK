@@ -1,4 +1,6 @@
 const Alumno = require('../models/Alumno');
+const Mensaje = require('../models/Mensaje');
+const Respuesta = require('../models/Respuesta');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -47,6 +49,8 @@ exports.deleteAlumno = async(req, res) => {
     const alumno = await Alumno.findByPk(req.params.id);
     if(alumno){
         await alumno.destroy();
+        await Mensaje.destroy({ where: { dueno: req.params.id }});
+        await Respuesta.destroy({ where: { dueno: req.params.id }});
         res.status(204).send("Alumno deleted succesfully");
     }else{
         res.status(404).send("Alumno not found");
