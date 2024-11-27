@@ -1,9 +1,17 @@
 const Mensaje = require('../models/Mensaje');
 
-exports.getAllMensajes = async(req, res) => {
-    const mensajes = await Mensaje.findAll();
-    res.json(mensajes);
+exports.getAllMensajes = async (req, res) => {
+    try {
+        const mensajes = await Mensaje.findAll({
+            order: [['fecha', 'DESC']] // Ordenar por la columna `fecha` en orden descendente
+        });
+        res.json(mensajes);
+    } catch (error) {
+        console.error("Error al obtener los mensajes:", error);
+        res.status(500).json({ message: "Error al obtener los mensajes." });
+    }
 };
+
 
 exports.getMensajeById = async(req, res) => {
     const mensaje = await Mensaje.findByPk(req.params.id);
