@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('Politecnianos', 'root', 'juli1411', {
+const sequelize = new Sequelize('Politecnianos', 'alumno', 'alumnoipm', {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     dialect : 'mysql'
